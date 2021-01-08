@@ -1,0 +1,48 @@
+.btn-purple {
+    color: #fff;
+    background-color: #462c6c;
+    border-color: #462c6c;
+}
+
+.bg-purple {
+    background-color: #462c6c;
+}
+
+
+.modal-header {
+    background-color: rgba(0,0,0,.03)!important;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.modal-footer {
+    background-color: rgba(163, 105, 105, 0.03)!important;
+    border-top: 1px solid rgba(0,0,0,.125);
+}
+
+.img-card {
+    width: 35%;
+    height: auto;
+}
+
+.tooltip-inner {
+    background-color: #FFF;
+    color: #000;
+    border: 1px solid RGB(128,128,128);
+    box-shadow: 2px 2px 4px 0px rgba(161, 161, 161, 1)
+}
+
+.tooltip.bs-tooltip-right .arrow:before {
+    border-right-color: RGB(128,128,128) !important;
+}
+
+.tooltip.bs-tooltip-left .arrow:before {
+    border-left-color: RGB(128,128,128) !important;
+}
+
+.tooltip.bs-tooltip-bottom .arrow:before {
+    border-bottom-color: RGB(128,128,128) !important;
+}
+
+.tooltip.bs-tooltip-top .arrow:before {
+    border-top-color: RGB(128,128,128) !important;
+}
