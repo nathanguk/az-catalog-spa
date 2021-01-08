@@ -62,16 +62,27 @@ getTemplates().then(options => {
 
          let cardDivFooterRow = document.createElement('div');
          cardDivFooterRow.classList.add('row');
+         cardDivFooterRow.classList.add('d-flex');
+         cardDivFooterRow.classList.add('flex-row');
 
-         console.log(JSON.stringify(card.visualize));
+         let cardDivFooterBtn = document.createElement('div');
+         cardDivFooterBtn.classList.add('col-5');
+         cardDivFooterBtn.classList.add('d-flex');
+         cardDivFooterBtn.classList.add('align-content-end');
 
-         let cardDivFooterBtnV = document.createElement('div');
-         cardDivFooterBtnV.classList.add('col-sm-3');
-         //cardDivFooterBtnV.classList.add('text-right');
+         let cardDivFooterBtnRow = document.createElement('div');
+         cardDivFooterBtnRow.classList.add('row');
+         cardDivFooterBtnRow.classList.add('d-flex');
+         cardDivFooterBtnRow.classList.add('flex-row');
+
+
          let cardFooterBtnV = document.createElement("button");
          cardFooterBtnV.classList.add('btn');
          cardFooterBtnV.classList.add('btn-sm');
          cardFooterBtnV.classList.add('btn-purple');
+         cardFooterBtnV.classList.add('d-sm-none');
+         cardFooterBtnV.classList.add('d-lg-block');
+         
          cardFooterBtnV.innerHTML = 'Visualize';
          cardFooterBtnV.id = `${card.name}-v`;
          cardFooterBtnV.addEventListener('click', async function(event) {
@@ -82,30 +93,30 @@ getTemplates().then(options => {
          if(card.name == 'Coming Soon...'){
             cardFooterBtnV.disabled = true;
          }
-         cardDivFooterBtnV.appendChild(cardFooterBtnV);
+         cardDivFooterBtnRow.appendChild(cardFooterBtnV);
 
-         let cardDivFooterBtn = document.createElement('div');
-         cardDivFooterBtn.classList.add('col-sm-3');
-         //cardDivFooterBtn.classList.add('text-right');
-         let cardFooterBtn = document.createElement("button");
-         cardFooterBtn.classList.add('btn');
-         cardFooterBtn.classList.add('btn-sm');
-         cardFooterBtn.classList.add('btn-purple');
-         cardFooterBtn.innerHTML = 'Deploy';
-         cardFooterBtn.id = card.name;
-         cardFooterBtn.addEventListener('click', async function(event) {
-            cardFooterBtn.disabled = true;
+         let cardFooterBtnD = document.createElement("button");
+         cardFooterBtnD.classList.add('btn');
+         cardFooterBtnD.classList.add('btn-sm');
+         cardFooterBtnD.classList.add('btn-purple');
+         cardFooterBtnD.innerHTML = 'Deploy';
+         cardFooterBtnD.id = card.name;
+         cardFooterBtnD.addEventListener('click', async function(event) {
+            cardFooterBtnD.disabled = true;
             await createForm(event.target.id);
-            cardFooterBtn.disabled = false;
+            cardFooterBtnD.disabled = false;
          });
          if(card.name == 'Coming Soon...'){
-            cardFooterBtn.disabled = true;
+            cardFooterBtnD.disabled = true;
          }
-         cardDivFooterBtn.appendChild(cardFooterBtn);
+         cardDivFooterBtnRow.appendChild(cardFooterBtnD);
+         cardDivFooterBtn.appendChild(cardDivFooterBtnRow);
 
          let cardDivFooterImg = document.createElement('div');
-         cardDivFooterImg.classList.add('col-sm-6');
-         cardDivFooterImg.classList.add('text-left');
+         cardDivFooterImg.classList.add('col-7');
+         cardDivFooterImg.classList.add('align-content-start');
+         cardDivFooterImg.classList.add('d-flex');
+
          cardFooterImg = document.createElement("img"); //
          cardFooterImg.src = './assets/img/azure.svg'; //
          cardFooterImg.classList.add('img-card'); // img-fluid
@@ -113,7 +124,6 @@ getTemplates().then(options => {
 
          
          cardDivFooterRow.appendChild(cardDivFooterImg);
-         cardDivFooterRow.appendChild(cardDivFooterBtnV);
          cardDivFooterRow.appendChild(cardDivFooterBtn);
          cardDivFooter.appendChild(cardDivFooterRow);
 
@@ -378,11 +388,3 @@ function templateBody(inputString){
 $(document).ready(function() {
    $("body").tooltip({ selector: '[data-toggle=tooltip]' });
 });
-
-
-
-
-
-
-
-

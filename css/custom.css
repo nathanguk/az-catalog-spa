@@ -2,7 +2,12 @@
     color: #fff;
     background-color: #462c6c;
     border-color: #462c6c;
+    margin-right: 2px !important;
+    margin-bottom: 2px !important;
+    margin-top: 2px !important;
+    margin-left: 2px !important;
 }
+
 
 .bg-purple {
     background-color: #462c6c;
@@ -20,8 +25,12 @@
 }
 
 .img-card {
-    width: 25%;
+    width: 15%;
     height: auto;
+    margin-right: 2px !important;
+    margin-bottom: 2px !important;
+    margin-top: 2px !important;
+    margin-left: 2px !important;
 }
 
 .tooltip-inner {
