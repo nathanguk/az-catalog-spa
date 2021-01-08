@@ -9,6 +9,7 @@ const uri = "https://<<YOUR FUNCTION APP>>-fa.azurewebsites.net/api/";
 // Azure Function App Host Key
 const code = "<<YOUR FUNCTION APP HOST KEY>";
 
+
 // Javascript Load Template List
 getTemplates().then(options => {
 
@@ -58,16 +59,37 @@ getTemplates().then(options => {
 
          let cardDivFooter = document.createElement('div');
          cardDivFooter.classList.add('card-footer');
-         //cardDivFooter.classList.add('text-right');
 
          let cardDivFooterRow = document.createElement('div');
          cardDivFooterRow.classList.add('row');
 
+         console.log(JSON.stringify(card.visualize));
+
+         let cardDivFooterBtnV = document.createElement('div');
+         cardDivFooterBtnV.classList.add('col-sm-3');
+         //cardDivFooterBtnV.classList.add('text-right');
+         let cardFooterBtnV = document.createElement("button");
+         cardFooterBtnV.classList.add('btn');
+         cardFooterBtnV.classList.add('btn-sm');
+         cardFooterBtnV.classList.add('btn-purple');
+         cardFooterBtnV.innerHTML = 'Visualize';
+         cardFooterBtnV.id = `${card.name}-v`;
+         cardFooterBtnV.addEventListener('click', async function(event) {
+            cardFooterBtnV.disabled = true;
+            window.open(card.visualize);
+            cardFooterBtnV.disabled = false;
+         });
+         if(card.name == 'Coming Soon...'){
+            cardFooterBtnV.disabled = true;
+         }
+         cardDivFooterBtnV.appendChild(cardFooterBtnV);
+
          let cardDivFooterBtn = document.createElement('div');
-         cardDivFooterBtn.classList.add('col');
-         cardDivFooterBtn.classList.add('text-right');
+         cardDivFooterBtn.classList.add('col-sm-3');
+         //cardDivFooterBtn.classList.add('text-right');
          let cardFooterBtn = document.createElement("button");
          cardFooterBtn.classList.add('btn');
+         cardFooterBtn.classList.add('btn-sm');
          cardFooterBtn.classList.add('btn-purple');
          cardFooterBtn.innerHTML = 'Deploy';
          cardFooterBtn.id = card.name;
@@ -82,7 +104,7 @@ getTemplates().then(options => {
          cardDivFooterBtn.appendChild(cardFooterBtn);
 
          let cardDivFooterImg = document.createElement('div');
-         cardDivFooterImg.classList.add('col');
+         cardDivFooterImg.classList.add('col-sm-6');
          cardDivFooterImg.classList.add('text-left');
          cardFooterImg = document.createElement("img"); //
          cardFooterImg.src = './assets/img/azure.svg'; //
@@ -91,6 +113,7 @@ getTemplates().then(options => {
 
          
          cardDivFooterRow.appendChild(cardDivFooterImg);
+         cardDivFooterRow.appendChild(cardDivFooterBtnV);
          cardDivFooterRow.appendChild(cardDivFooterBtn);
          cardDivFooter.appendChild(cardDivFooterRow);
 
