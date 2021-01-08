@@ -23,7 +23,9 @@ getTemplates().then(options => {
 
       if(deckArray.length < 3){
          while(deckArray.length < 3){
-            deckArray.push("Coming Soon...");
+            deckArray.push({
+               name: "Coming Soon..."
+            });
          } 
       }
 
@@ -43,7 +45,7 @@ getTemplates().then(options => {
          let cardDivHeader = document.createElement('div');
          cardDivHeader.classList.add('card-header');
          let cardHeaderElement = document.createElement("h5")
-         let cardHeaderText = document.createTextNode(templateLabel(card));
+         let cardHeaderText = document.createTextNode(templateLabel(card.name));
          cardHeaderElement.appendChild(cardHeaderText); 
          cardDivHeader.appendChild(cardHeaderElement);
 
@@ -51,7 +53,7 @@ getTemplates().then(options => {
          cardDivBody.classList.add('card-body');
          let cardBodyElement = document.createElement('p');
          cardBodyElement.classList.add('card-text');
-         cardBodyElement.innerHTML = `This template deploys: <em>${templateBody(card)}</em>`;
+         cardBodyElement.innerHTML = `This template deploys: <em>${templateBody(card.name)}</em>`;
          cardDivBody.appendChild(cardBodyElement);
 
          let cardDivFooter = document.createElement('div');
@@ -68,13 +70,13 @@ getTemplates().then(options => {
          cardFooterBtn.classList.add('btn');
          cardFooterBtn.classList.add('btn-purple');
          cardFooterBtn.innerHTML = 'Deploy';
-         cardFooterBtn.id = card;
+         cardFooterBtn.id = card.name;
          cardFooterBtn.addEventListener('click', async function(event) {
             cardFooterBtn.disabled = true;
             await createForm(event.target.id);
             cardFooterBtn.disabled = false;
          });
-         if(card == 'Coming Soon...'){
+         if(card.name == 'Coming Soon...'){
             cardFooterBtn.disabled = true;
          }
          cardDivFooterBtn.appendChild(cardFooterBtn);
