@@ -1,5 +1,6 @@
 // Select DOM elements to work with
 const container = document.getElementById('container');
+const loader = document.getElementById('loader');
 const modalbody = document.getElementById('modal-body');
 const modalLabel = document.getElementById('modalLabel');
 var form = document.getElementById('form');
@@ -12,6 +13,10 @@ const code = "<<YOUR FUNCTION APP HOST KEY>";
 
 // Javascript Load Template List
 getTemplates().then(options => {
+
+   // Close loader once we have data.
+   loader.classList.add('d-none');
+   container.classList.remove('d-none');
 
    // Function to Split Array of Templates into smaller Arrays
    const chunk = (arr, size) =>
