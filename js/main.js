@@ -2,7 +2,7 @@
 const container = document.getElementById('container');
 const modalbody = document.getElementById('modal-body');
 const modalLabel = document.getElementById('modalLabel');
-const form = document.getElementById('form');
+var form = document.getElementById('form');
 
 // Azure Function App Uri
 const uri = "https://<<YOUR FUNCTION APP>>-fa.azurewebsites.net/api/";
@@ -13,6 +13,7 @@ const code = "<<YOUR FUNCTION APP HOST KEY>";
 // Javascript Load Template List
 getTemplates().then(options => {
 
+   // Function to Split Array of Templates into smaller Arrays
    const chunk = (arr, size) =>
    Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
       arr.slice(i * size, i * size + size)
@@ -20,8 +21,10 @@ getTemplates().then(options => {
 
    let decksArray = chunk(options, 3);
 
+   // Loop Through Tempaltes to build rows of Cards Decks
    for(let deckArray of decksArray){
 
+      // Pad out arrays of cards that are less than 3
       if(deckArray.length < 3){
          while(deckArray.length < 3){
             deckArray.push({
@@ -30,12 +33,15 @@ getTemplates().then(options => {
          } 
       }
 
+      // Create Card Deck
       let cardDeckDiv = document.createElement('div');
       cardDeckDiv.classList.add('card-deck');
       cardDeckDiv.classList.add('mb-3'); 
       cardDeckDiv.classList.add('text-left');  
 
       for(let card of deckArray){
+
+         // Create Card Element
          let cardDiv = document.createElement('div');
          cardDiv.classList.add('card');
          cardDiv.classList.add('mb-3'); 
@@ -43,6 +49,7 @@ getTemplates().then(options => {
          cardDiv.classList.add('bg-light');
          cardDiv.classList.add('border-secondary');
 
+         // Create Card Header Element
          let cardDivHeader = document.createElement('div');
          cardDivHeader.classList.add('card-header');
          let cardHeaderElement = document.createElement("h5")
@@ -50,6 +57,7 @@ getTemplates().then(options => {
          cardHeaderElement.appendChild(cardHeaderText); 
          cardDivHeader.appendChild(cardHeaderElement);
 
+         // Create Card Body Element
          let cardDivBody = document.createElement('div');
          cardDivBody.classList.add('card-body');
          let cardBodyElement = document.createElement('p');
@@ -57,32 +65,18 @@ getTemplates().then(options => {
          cardBodyElement.innerHTML = `This template deploys: <em>${templateBody(card.name)}</em>`;
          cardDivBody.appendChild(cardBodyElement);
 
+         // Create Card Footer Element
          let cardDivFooter = document.createElement('div');
          cardDivFooter.classList.add('card-footer');
 
-         let cardDivFooterRow = document.createElement('div');
-         cardDivFooterRow.classList.add('row');
-         cardDivFooterRow.classList.add('d-flex');
-         cardDivFooterRow.classList.add('flex-row');
-
-         let cardDivFooterBtn = document.createElement('div');
-         cardDivFooterBtn.classList.add('col-5');
-         cardDivFooterBtn.classList.add('d-flex');
-         cardDivFooterBtn.classList.add('align-content-end');
-
-         let cardDivFooterBtnRow = document.createElement('div');
-         cardDivFooterBtnRow.classList.add('row');
-         cardDivFooterBtnRow.classList.add('d-flex');
-         cardDivFooterBtnRow.classList.add('flex-row');
-
-
+         // Card Footer Visualize Button
          let cardFooterBtnV = document.createElement("button");
          cardFooterBtnV.classList.add('btn');
          cardFooterBtnV.classList.add('btn-sm');
          cardFooterBtnV.classList.add('btn-purple');
+         cardFooterBtnV.classList.add('float-right'); //
          cardFooterBtnV.classList.add('d-sm-none');
          cardFooterBtnV.classList.add('d-lg-block');
-         
          cardFooterBtnV.innerHTML = 'Visualize';
          cardFooterBtnV.id = `${card.name}-v`;
          cardFooterBtnV.addEventListener('click', async function(event) {
@@ -92,13 +86,14 @@ getTemplates().then(options => {
          });
          if(card.name == 'Coming Soon...'){
             cardFooterBtnV.disabled = true;
-         }
-         cardDivFooterBtnRow.appendChild(cardFooterBtnV);
+         };
 
+         // Card Footer Display Button
          let cardFooterBtnD = document.createElement("button");
          cardFooterBtnD.classList.add('btn');
          cardFooterBtnD.classList.add('btn-sm');
          cardFooterBtnD.classList.add('btn-purple');
+         cardFooterBtnD.classList.add('float-right');
          cardFooterBtnD.innerHTML = 'Deploy';
          cardFooterBtnD.id = card.name;
          cardFooterBtnD.addEventListener('click', async function(event) {
@@ -108,33 +103,32 @@ getTemplates().then(options => {
          });
          if(card.name == 'Coming Soon...'){
             cardFooterBtnD.disabled = true;
-         }
-         cardDivFooterBtnRow.appendChild(cardFooterBtnD);
-         cardDivFooterBtn.appendChild(cardDivFooterBtnRow);
+         };
 
-         let cardDivFooterImg = document.createElement('div');
-         cardDivFooterImg.classList.add('col-7');
-         cardDivFooterImg.classList.add('align-content-start');
-         cardDivFooterImg.classList.add('d-flex');
+         // Card Footer Image
+         cardFooterImg = document.createElement("img");
+         cardFooterImg.src = './assets/img/azure.svg';
+         cardFooterImg.classList.add('img-card');
+         cardFooterImg.classList.add('float-left');
+         cardFooterImg.classList.add('d-sm-none');
+         cardFooterImg.classList.add('d-lg-block');
 
-         cardFooterImg = document.createElement("img"); //
-         cardFooterImg.src = './assets/img/azure.svg'; //
-         cardFooterImg.classList.add('img-card'); // img-fluid
-         cardDivFooterImg.appendChild(cardFooterImg);
+         // Add Buttons and Image to footer
+         cardDivFooter.appendChild(cardFooterImg); 
+         cardDivFooter.appendChild(cardFooterBtnD); 
+         cardDivFooter.appendChild(cardFooterBtnV); 
 
-         
-         cardDivFooterRow.appendChild(cardDivFooterImg);
-         cardDivFooterRow.appendChild(cardDivFooterBtn);
-         cardDivFooter.appendChild(cardDivFooterRow);
-
+         // Header, Body and Footer to Card
          cardDiv.appendChild(cardDivHeader);
          cardDiv.appendChild(cardDivBody);
          cardDiv.appendChild(cardDivFooter);
 
+         // Add Card to Deck
          cardDeckDiv.appendChild(cardDiv);
 
       };
 
+      // Add card deck to Container
       container.appendChild(cardDeckDiv);
 
    };
@@ -237,6 +231,9 @@ async function getTemplates() {
        form.removeChild(form.lastChild);
     }
 
+    // Clears DOM events from form
+    form = form.cloneNode(false);
+
     let templateJson = await getTemplate(template);
     let parameterNames = Object.keys(templateJson);
     let br = document.createElement("br");
@@ -308,6 +305,7 @@ async function getTemplates() {
             };
           }else if(templateJson[parameterName].type.toLowerCase() == "securestring"){
             formInput.setAttribute("type", "password");
+            formInput.setAttribute("autocomplete", `new-${parameterName.toLowerCase()}`);
             if(templateJson[parameterName].minLength){
                formInput.minLength = templateJson[parameterName].minLength
             };
@@ -318,6 +316,7 @@ async function getTemplates() {
             formInput.setAttribute("type", "text");
             if(templateJson[parameterName].minLength){
                formInput.minLength = templateJson[parameterName].minLength
+               formInput.setAttribute("autocomplete", `new-${parameterName.toLowerCase()}`);
             };
             if(templateJson[parameterName].maxLength){
                formInput.maxLength = templateJson[parameterName].maxLength
@@ -335,8 +334,6 @@ async function getTemplates() {
 
        formRow.appendChild(formRowCol);
        form.appendChild(formRow);
-       form.addEventListener('submit', (event) => deployTemplate(event, template));
-
     });
 
     // add Button to Form
@@ -355,6 +352,10 @@ async function getTemplates() {
     modalLabel.innerHTML = (templateLabel(template));  
     modalbody.appendChild(form); 
     $("#modal").modal('show');
+
+    form.removeEventListener('submit', (event) => deployTemplate(event, template));
+
+    form.addEventListener('submit', (event) => deployTemplate(event, template));
  
  };
 
